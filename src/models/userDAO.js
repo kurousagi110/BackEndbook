@@ -107,8 +107,6 @@ export default class UserDAO {
                     _id: user._id,
                     email: user.email,
                     username: user.username,
-                    age: user.age,
-                    gender: user.gender,
                     createdAt: user.createdAt,
                     lastLogin: now,
                     isActive: user.isActive,
