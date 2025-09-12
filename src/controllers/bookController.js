@@ -28,7 +28,11 @@ export default class BookController {
   // GET /books
   static async getBooks(req, res) {
     try {
-      const books = await BookDAO.getBooks();
+        const { page = 1, limit = 10 } = req.query;
+        const pageNum = Math.max(parseInt(page) || 1, 1);
+        const lim = Math.max(parseInt(limit) || 10, 1);
+        const skip = (pageNum - 1) * lim;
+      const books = await BookDAO.getBooks(skip, lim);
       if (!books || books.length === 0) {
         return res.status(404).json({ error: "No books found" });
       }

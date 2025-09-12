@@ -67,9 +67,9 @@ export default class BookDAO {
     }
 
 
-    static async getBooks() {
+    static async getBooks( skip = 0, limit = 50) {
         try {
-            return await booksCollection.find({}).toArray();
+            return await booksCollection.find({}).skip(skip).limit(limit).toArray();
         } catch (e) {
             console.error(`Unable to get books: ${e}`);
             throw e;

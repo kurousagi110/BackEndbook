@@ -2,6 +2,7 @@
 import mongodb from "mongodb";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import e from "express";
 
 const { ObjectId } = mongodb;
 
@@ -20,104 +21,119 @@ export default class UserDAO {
     }
 
     static async register(email, password, username, name, avatar) {
-    try {
-        if (!password) {
-            throw new Error("Password is required");
-        }
-
-        if (password.length < 8) {
-            throw new Error("Password must be at least 8 characters long");
-        }
-
-        // Tạo query kiểm tra user tồn tại, chỉ kiểm tra email nếu email được cung cấp
-        const query = { username: username.trim() };
-        if (email !== undefined && email !== null && email !== '') {
-            query.$or = [
-                { email: email.toLowerCase().trim() },
-                { username: username.trim() }
-            ];
-        }
-
-        const existingUser = await users.findOne(query);
-        
-        if (existingUser) {
-            // Chỉ kiểm tra email nếu email được cung cấp
-            if (email !== undefined && email !== null && email !== '' && 
-                existingUser.email === email.toLowerCase().trim()) {
-                throw new Error("User with this email already exists");
+        try {
+            if (!password) {
+                throw new Error("Password is required");
             }
-            if (existingUser.username === username.trim()) {
-                throw new Error("Username is already taken");
+
+            if (password.length < 8) {
+                throw new Error("Password must be at least 8 characters long");
             }
+
+            // // Tạo query kiểm tra user tồn tại, chỉ kiểm tra email nếu email được cung cấp
+            // const query = { username: username.trim() };
+            // if (email !== undefined && email !== null && email !== '') {
+            //     query.$or = [
+            //         { email: email.toLowerCase().trim() },
+            //         { username: username.trim() }
+            //     ];
+            // }
+
+            const existingUser = await users.findOne(email !== undefined && email !== null && email !== '' ? { email: email.toLowerCase().trim() } : { username: username.trim() });
+
+            if (existingUser) {
+                // Chỉ kiểm tra email nếu email được cung cấp
+                if (email !== undefined && email !== null && email !== '' &&
+                    existingUser.email === email.toLowerCase().trim()) {
+                    throw new Error("User with this email already exists");
+                }
+                if (existingUser.username === username.trim()) {
+                    throw new Error("Username is already taken");
+                }
+            }
+
+            const hashedPassword = await bcrypt.hash(password, 12);
+
+            const newUser = {
+                password: hashedPassword,
+                username: username.trim(),
+                createdAt: new Date(),
+                updatedAt: new Date(),
+                isActive: true,
+                favoriteBooks: [],
+                name: name,
+                avatar: avatar,
+            };
+
+            // Chỉ thêm email nếu email được cung cấp
+            if (email !== undefined && email !== null && email !== '') {
+                newUser.email = email.toLowerCase().trim();
+            }
+
+            const result = await users.insertOne(newUser);
+            return result.insertedId;
+        } catch (error) {
+            console.error(`Unable to register user: ${error.message}`);
+            throw error;
         }
-
-        const hashedPassword = await bcrypt.hash(password, 12);
-
-        const newUser = {
-            password: hashedPassword,
-            username: username.trim(),
-            createdAt: new Date(),
-            updatedAt: new Date(),
-            isActive: true,
-            favoriteBooks: [],
-            name: name,
-            avatar: avatar,
-        };
-
-        // Chỉ thêm email nếu email được cung cấp
-        if (email !== undefined && email !== null && email !== '') {
-            newUser.email = email.toLowerCase().trim();
-        }
-
-        const result = await users.insertOne(newUser);
-        return result.insertedId;
-    } catch (error) {
-        console.error(`Unable to register user: ${error.message}`);
-        throw error;
     }
-}
 
     static async login(identifier, password) {
         try {
-            if (!identifier || !password)
+            if (!identifier || !password) {
                 throw new Error("Email/username and password are required");
-
-            const isEmail = identifier.includes("@");
-            let user;
-
-            if (isEmail) {
-                const normalizedEmail = identifier.toLowerCase().trim();
-                user = await users.findOne({
-                    email: { $regex: new RegExp(`^${normalizedEmail}$`, "i") },
-                });
-            } else {
-                const normalizedUsername = identifier.trim();
-                user = await users.findOne({
-                    username: { $regex: new RegExp(`^${normalizedUsername}$`, "i") },
-                });
             }
 
-            if (!user) throw new Error("Invalid email/username or password");
-            if (user.isActive === false)
-                throw new Error("Account is deactivated. Please contact support.");
+            console.log("Login attempt:", { identifier: identifier.trim() });
 
+            // Tìm user bằng username hoặc email
+            let user = await users.findOne({
+                $or: [
+                    { username: identifier.trim() },
+                    { email: identifier.trim().toLowerCase() }
+                ]
+            });
+
+            if (!user) {
+                throw new Error("Invalid email/username or password");
+            }
+
+            if (user.isActive === false) {
+                throw new Error("Account is deactivated. Please contact support.");
+            }
+
+            // Kiểm tra password
             const isValid = await bcrypt.compare(password, user.password);
-            if (!isValid) throw new Error("Invalid email/username or password");
+            if (!isValid) {
+                throw new Error("Invalid email/username or password");
+            }
 
             if (!process.env.JWT_SECRET) {
                 throw new Error("Server misconfigured: JWT_SECRET is missing");
             }
 
+            // Tạo JWT token
             const token = jwt.sign(
-                { id: user._id, email: user.email, username: user.username },
+                {
+                    id: user._id,
+                    email: user.email,
+                    username: user.username
+                },
                 process.env.JWT_SECRET,
                 { expiresIn: process.env.JWT_EXPIRES_IN || "1h" }
             );
 
             const now = new Date();
+
+            // Cập nhật last login
             await users.updateOne(
                 { _id: user._id },
-                { $set: { lastLogin: now, updatedAt: now } }
+                {
+                    $set: {
+                        lastLogin: now,
+                        updatedAt: now
+                    }
+                }
             );
 
             return {
