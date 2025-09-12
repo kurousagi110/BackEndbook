@@ -67,14 +67,24 @@ export default class BookDAO {
     }
 
 
-    static async getBooks( skip = 0, limit = 50) {
+    static async getBooks({ filter = {}, skip = 0, limit = 10 }) {
         try {
-            return await booksCollection.find({}).skip(skip).limit(limit).toArray();
+            const [total, books] = await Promise.all([
+                booksCollection.countDocuments(filter),
+                booksCollection
+                    .find(filter)
+                    .sort({ updatedAt: -1, _id: -1 }) // mới nhất trước
+                    .skip(skip)
+                    .limit(limit)
+                    .toArray(),
+            ]);
+            return { total, books };
         } catch (e) {
             console.error(`Unable to get books: ${e}`);
             throw e;
         }
     }
+
 
     static async getBookById(bookId) {
         try {
