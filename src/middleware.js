@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import projectDAO from "./models/projectDAO.js";
 
 // Middleware functions
 
@@ -31,26 +30,7 @@ const middleware = {
         next();
     },
 
-    // Kiểm tra quyền sở hữu project
-    checkProjectOwnership: async (req, res, next) => {
-        try {
-            const projectId = req.params.id;
-            const project = await projectDAO.getProjectById(projectId);
-            
-            if (!project) {
-                return res.status(404).json({ error: "Project not found" });
-            }
 
-            // Cho phép admin hoặc chủ sở hữu project
-            if (req.user.role !== 'admin' && project.userId.toString() !== req.user.id) {
-                return res.status(403).json({ error: "You don't have permission to access this project" });
-            }
-            
-            next();
-        } catch (error) {
-            res.status(500).json({ error: error.message });
-        }
-    },
 
     // Validation cho project
     validateProject: (req, res, next) => {

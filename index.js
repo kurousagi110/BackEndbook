@@ -2,10 +2,8 @@ import app from './server.js'
 import mongodb from "mongodb"
 import dotenv from "dotenv"
 import userDAO from './src/models/userDAO.js'
-import sectionDAO from './src/models/sectionsDAO.js'
-import projectDAO from './src/models/projectDAO.js'
-import labelDAO from './src/models/labelDAO.js'
-import taskDAO from './src/models/taskDAO.js'
+import bookDAO from './src/models/bookDAO.js'
+import CommentDAO from './src/models/commentDAO.js'
 
  
 async function main(){                              
@@ -18,10 +16,8 @@ async function main(){
   try {
     await client.connect()
     await userDAO.injectDB(client)
-    await sectionDAO.injectDB(client)
-    await projectDAO.injectDB(client)
-    await labelDAO.injectDB(client)
-    await taskDAO.injectDB(client)
+    await bookDAO.injectDB(client)
+    await CommentDAO.injectDB(client)
 
     app.listen(port, ()=>{
         console.log(`Server is running on port ${port}`)

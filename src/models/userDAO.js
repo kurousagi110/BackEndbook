@@ -1,59 +1,247 @@
-import mongodb from "mongodb"
-const ObjectId = mongodb.ObjectId
-import bcrypt from "bcrypt"
-import jwt from "jsonwebtoken"
+// models/userDAO.js
+import mongodb from "mongodb";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
-let users
-export default class userDAO{
+const { ObjectId } = mongodb;
+
+let users;
+
+export default class UserDAO {
     static async injectDB(conn) {
-        if (users) {
-            return
-        }
+        if (users) return;
         try {
-            users = await conn.db(process.env.MOVIEREVIEWS_DB_NAME).collection("users")
+            users = await conn
+                .db(process.env.MOVIEREVIEWS_DB_NAME)
+                .collection("users");
         } catch (e) {
-            console.error(`Unable to establish a collection handle in userDAO: ${e}`)
+            console.error(`Unable to establish collection handle in userDAO: ${e}`);
         }
     }
-    static async register(email, password) {
+
+    static async register(email, password, username, age, gender) {
         try {
-            const user = await users.findOne({ email })
-            console.log("Registering user:", email)
-            if (user) {
-                throw new Error("User already exists")
+            if (!email || !password || !username) {
+                throw new Error("Email, password, and username are required");
             }
-            const hashedPassword = await bcrypt.hash(password, 10)
-            const addUser = {
-                email,
-                password: hashedPassword
+
+            const existingUser = await users.findOne({
+                $or: [{ email: email.toLowerCase().trim() }, { username: username.trim() }],
+            });
+            if (existingUser) {
+                if (existingUser.email === email.toLowerCase().trim())
+                    throw new Error("User with this email already exists");
+                throw new Error("Username is already taken");
             }
-            const result = await users.insertOne(addUser)
-            return result.insertedId
-        } catch (e) {
-            console.error(`Unable to register user in userDAO: ${e}`)
-            throw e
+
+            if (password.length < 8)
+                throw new Error("Password must be at least 8 characters long");
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) throw new Error("Invalid email format");
+
+            const hashedPassword = await bcrypt.hash(password, 12);
+
+            const newUser = {
+                email: email.toLowerCase().trim(),
+                password: hashedPassword,
+                username: username.trim(),
+                age: Number.isFinite(+age) ? parseInt(age) : null,
+                gender: gender || null,
+                createdAt: new Date(),
+                updatedAt: new Date(),
+                isActive: true,
+                favoriteBooks: [],
+            };
+
+            const result = await users.insertOne(newUser);
+            return result.insertedId;
+        } catch (error) {
+            console.error(`Unable to register user: ${error.message}`);
+            throw error;
         }
     }
-    static async login(email, password) {
+
+    static async login(identifier, password) {
         try {
-            const user = await users.findOne({ email })
-            if (!user) {
-                throw new Error("User not found")
+            if (!identifier || !password)
+                throw new Error("Email/username and password are required");
+
+            const isEmail = identifier.includes("@");
+            let user;
+
+            if (isEmail) {
+                const normalizedEmail = identifier.toLowerCase().trim();
+                user = await users.findOne({
+                    email: { $regex: new RegExp(`^${normalizedEmail}$`, "i") },
+                });
+            } else {
+                const normalizedUsername = identifier.trim();
+                user = await users.findOne({
+                    username: { $regex: new RegExp(`^${normalizedUsername}$`, "i") },
+                });
             }
-            const isValid = await bcrypt.compare(password, user.password)
-            if (!isValid) {
-                throw new Error("Invalid password")
+
+            if (!user) throw new Error("Invalid email/username or password");
+            if (user.isActive === false)
+                throw new Error("Account is deactivated. Please contact support.");
+
+            const isValid = await bcrypt.compare(password, user.password);
+            if (!isValid) throw new Error("Invalid email/username or password");
+
+            if (!process.env.JWT_SECRET) {
+                throw new Error("Server misconfigured: JWT_SECRET is missing");
             }
-            const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' })
-            // Optionally, you can remove the password field before returning the user object
-            delete user.password
-            // Return the user object with the token
-            const result = { user, token }
-            return result
-        } catch (e) {
-            console.error(`Unable to login user in userDAO: ${e}`)
-            throw e
+
+            const token = jwt.sign(
+                { id: user._id, email: user.email, username: user.username },
+                process.env.JWT_SECRET,
+                { expiresIn: process.env.JWT_EXPIRES_IN || "1h" }
+            );
+
+            const now = new Date();
+            await users.updateOne(
+                { _id: user._id },
+                { $set: { lastLogin: now, updatedAt: now } }
+            );
+
+            return {
+                user: {
+                    _id: user._id,
+                    email: user.email,
+                    username: user.username,
+                    age: user.age,
+                    gender: user.gender,
+                    createdAt: user.createdAt,
+                    lastLogin: now,
+                    isActive: user.isActive,
+                },
+                token,
+                tokenType: "Bearer",
+                expiresIn: process.env.JWT_EXPIRES_IN || "1h",
+            };
+        } catch (error) {
+            console.error(`Login error: ${error.message}`);
+            throw error;
         }
+    }
+
+    static async getUserById(userId) {
+        if (!userId) throw new Error("User ID is required");
+        if (!ObjectId.isValid(userId)) throw new Error("Invalid user ID format");
+
+        const user = await users.findOne(
+            { _id: new ObjectId(userId) },
+            { projection: { password: 0 } }
+        );
+        if (!user) throw new Error("User not found");
+        return user;
+    }
+
+    static async updateUser(userId, updateData) {
+        if (!userId) throw new Error("User ID is required");
+        if (!ObjectId.isValid(userId)) throw new Error("Invalid user ID format");
+        if (!updateData || Object.keys(updateData).length === 0)
+            throw new Error("No update data provided");
+
+        // Chuẩn hoá + chỉ cho phép một số field
+        const allowedFields = ["email", "username", "age", "gender"];
+        const filteredUpdate = {};
+        for (const field of allowedFields) {
+            if (updateData[field] !== undefined) filteredUpdate[field] = updateData[field];
+        }
+
+        if (filteredUpdate.email) {
+            filteredUpdate.email = filteredUpdate.email.toLowerCase().trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(filteredUpdate.email))
+                throw new Error("Invalid email format");
+        }
+        if (filteredUpdate.username) {
+            filteredUpdate.username = filteredUpdate.username.trim();
+        }
+        if (filteredUpdate.age !== undefined) {
+            filteredUpdate.age = Number.isFinite(+filteredUpdate.age)
+                ? parseInt(filteredUpdate.age)
+                : null;
+        }
+
+        // Tránh trùng email/username với user khác
+        if (filteredUpdate.email || filteredUpdate.username) {
+            const dup = await users.findOne({
+                _id: { $ne: new ObjectId(userId) },
+                $or: [
+                    filteredUpdate.email ? { email: filteredUpdate.email } : null,
+                    filteredUpdate.username ? { username: filteredUpdate.username } : null,
+                ].filter(Boolean),
+            });
+            if (dup) {
+                if (dup.email === filteredUpdate.email)
+                    throw new Error("User with this email already exists");
+                if (dup.username === filteredUpdate.username)
+                    throw new Error("Username is already taken");
+            }
+        }
+
+        filteredUpdate.updatedAt = new Date();
+
+        const result = await users.findOneAndUpdate(
+            { _id: new ObjectId(userId) },
+            { $set: filteredUpdate },
+            { returnDocument: "after", projection: { password: 0 } }
+        );
+
+        if (!result.value) throw new Error("User not found");
+        return result.value;
+    }
+
+    static async deactivateUser(userId) {
+        if (!userId) throw new Error("User ID is required");
+        if (!ObjectId.isValid(userId)) throw new Error("Invalid user ID format");
+
+        const result = await users.findOneAndUpdate(
+            { _id: new ObjectId(userId) },
+            { $set: { isActive: false, updatedAt: new Date() } },
+            { returnDocument: "after", projection: { password: 0 } }
+        );
+
+        if (!result.value) throw new Error("User not found");
+        return result.value;
+    }
+    // models/userDAO.js
+    static async updateFavoriteBook(userId, bookId, action = "toggle") {
+        if (!userId) throw new Error("User ID is required");
+        if (!ObjectId.isValid(userId)) throw new Error("Invalid user ID format");
+        if (!bookId) throw new Error("Book ID is required");
+        if (!ObjectId.isValid(bookId)) throw new Error("Invalid book ID format");
+
+        const _id = new ObjectId(userId);
+        const bId = new ObjectId(bookId);
+
+        // Lấy danh sách hiện tại để quyết định
+        const doc = await users.findOne({ _id }, { projection: { favoriteBooks: 1 } });
+        if (!doc) throw new Error("User not found");
+
+        let op; // 'add' | 'remove'
+        if (action === "add" || action === "remove") {
+            op = action;
+        } else { // toggle
+            const exists = (doc.favoriteBooks || []).some(x => x.equals(bId));
+            op = exists ? "remove" : "add";
+        }
+
+        const update =
+            op === "add"
+                ? { $addToSet: { favoriteBooks: bId }, $set: { updatedAt: new Date() } }
+                : { $pull: { favoriteBooks: bId }, $set: { updatedAt: new Date() } };
+
+        const result = await users.findOneAndUpdate(
+            { _id },
+            update,
+            { returnDocument: "after", projection: { password: 0 } }
+        );
+        if (!result.value) throw new Error("User not found");
+        return { actionApplied: op === "add" ? "added" : "removed", user: result.value };
     }
 
 }

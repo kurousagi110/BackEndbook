@@ -1,0 +1,170 @@
+[
+  {
+    "name": "Introduction to Python Programming",
+    "detail": "Open textbook giới thiệu Python từ cơ bản tới cấu trúc dữ liệu, thuật toán và thực hành.",
+    "link": "https://openstax.org/books/introduction-python-programming/pages/1-introduction",
+    "pdfLink": "https://assets.openstax.org/oscms-prodcms/media/documents/Introduction_to_Python_Programming_-_WEB.pdf",
+    "img": "https://assets.openstax.org/oscms-prodcms/media/openstax-python-programming-cover.png",
+    "writer": "Udayan Das, Aubrey Lawson, Chris Mayfield, Narges Norouzi"
+  },
+  {
+    "name": "Think Python (2nd Edition)",
+    "detail": "Nhập môn khoa học máy tính bằng Python, nhấn mạnh tư duy tính toán và giải quyết vấn đề.",
+    "link": "https://greenteapress.com/wp/think-python-2e/",
+    "pdfLink": "https://greenteapress.com/thinkpython2/thinkpython2.pdf",
+    "img": "https://via.placeholder.com/192x256.png?text=Think+Python+2e",
+    "writer": "Allen B. Downey"
+  },
+  {
+    "name": "The Linux Command Line",
+    "detail": "Hướng dẫn toàn diện về dòng lệnh Linux, từ cơ bản đến shell scripting.",
+    "link": "https://linuxcommand.org/tlcl.php",
+    "pdfLink": "https://sourceforge.net/projects/linuxcommand/files/TLCL/19.01/TLCL-19.01.pdf/download",
+    "img": "https://via.placeholder.com/192x256.png?text=The+Linux+Command+Line",
+    "writer": "William E. Shotts, Jr."
+  },
+  {
+    "name": "Pro Git (2nd Edition)",
+    "detail": "Sách Git mã nguồn mở, bao trùm từ căn bản đến nâng cao.",
+    "link": "https://git-scm.com/book/en/v2",
+    "pdfLink": "https://progit2.s3.amazonaws.com/en/2016-03-22-f3531/progit-en.1084.pdf",
+    "img": "https://via.placeholder.com/192x256.png?text=Pro+Git+2e",
+    "writer": "Scott Chacon, Ben Straub"
+  },
+  {
+    "name": "Dive into Deep Learning",
+    "detail": "Sách deep learning tương tác, có code kèm theo với PyTorch/MXNet/JAX/TensorFlow.",
+    "link": "https://d2l.ai/",
+    "pdfLink": "https://d2l.ai/d2l-en.pdf",
+    "img": "https://via.placeholder.com/192x256.png?text=Dive+Into+Deep+Learning",
+    "writer": "Aston Zhang, Zachary C. Lipton, Mu Li, Alexander J. Smola"
+  },
+  {
+    "name": "Introduction to Computer Science",
+    "detail": "Giới thiệu toàn cảnh khoa học máy tính, OpenStax phát hành 2024.",
+    "link": "https://openstax.org/books/introduction-computer-science/pages/1-introduction",
+    "pdfLink": "https://assets.openstax.org/oscms-prodcms/media/documents/Introduction_To_Computer_Science_-_WEB.pdf",
+    "img": "https://via.placeholder.com/192x256.png?text=OpenStax+CS",
+    "writer": "OpenStax"
+  },
+  {
+    "name": "Think Stats (2nd Edition)",
+    "detail": "Xác suất & thống kê cho lập trình viên Python, nhiều ví dụ và case study.",
+    "link": "https://greenteapress.com/wp/think-stats-2e/",
+    "pdfLink": "https://greenteapress.com/thinkstats2/thinkstats2.pdf",
+    "img": "https://via.placeholder.com/192x256.png?text=Think+Stats+2e",
+    "writer": "Allen B. Downey"
+  },
+  {
+    "name": "Think DSP",
+    "detail": "Nhập môn xử lý tín hiệu số bằng Python theo hướng thực hành.",
+    "link": "https://greenteapress.com/wp/think-dsp/",
+    "pdfLink": "https://greenteapress.com/thinkdsp/thinkdsp.pdf",
+    "img": "https://via.placeholder.com/192x256.png?text=Think+DSP",
+    "writer": "Allen B. Downey"
+  },
+  {
+    "name": "Operating Systems: Three Easy Pieces",
+    "detail": "Giáo trình Hệ điều hành (ảo hóa, đồng thời, lưu trữ) bản open-access.",
+    "link": "https://pages.cs.wisc.edu/~remzi/OSTEP/",
+    "pdfLink": "https://techiefood4u.files.wordpress.com/2020/02/operating_systems_three_easy_pieces.pdf",
+    "img": "https://via.placeholder.com/192x256.png?text=OSTEP",
+    "writer": "Remzi H. Arpaci-Dusseau, Andrea C. Arpaci-Dusseau"
+  },
+  {
+    "name": "An Introduction to Statistical Learning (2nd Edition)",
+    "detail": "Nhập môn học máy theo hướng thống kê, bản 2e có chương deep learning.",
+    "link": "https://www.statlearning.com/",
+    "pdfLink": "https://www.karlin.mff.cuni.cz/~pesta/NMFM334/StatLearning/Book2nd/ISLRv2_website.pdf",
+    "img": "https://via.placeholder.com/192x256.png?text=ISLR+2e",
+    "writer": "Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani"
+  },
+  {
+    "name": "Mathematics for Machine Learning",
+    "detail": "Nền tảng toán cho ML: đại số tuyến tính, giải tích, xác suất…",
+    "link": "https://mml-book.com/",
+    "pdfLink": "https://mml-book.github.io/book/mml-book.pdf",
+    "img": "https://via.placeholder.com/192x256.png?text=MML",
+    "writer": "Marc Peter Deisenroth, A. Aldo Faisal, Cheng Soon Ong"
+  },
+  {
+    "name": "Algorithms (Jeff Erickson)",
+    "detail": "Giáo trình thuật toán miễn phí, dùng trong các lớp ở UIUC.",
+    "link": "https://jeffe.cs.illinois.edu/teaching/algorithms/",
+    "pdfLink": "https://jeffe.cs.illinois.edu/teaching/algorithms/book/Algorithms-JeffE.pdf",
+    "img": "https://via.placeholder.com/192x256.png?text=Algorithms+Erickson",
+    "writer": "Jeff Erickson"
+  },
+  {
+    "name": "Algorithms (Dasgupta–Papadimitriou–Vazirani)",
+    "detail": "Sách thuật toán kinh điển, bản draft tiền xuất bản.",
+    "link": "https://book.huihoo.com/pdf/algorithms/",
+    "pdfLink": "https://algorithmics.lsi.upc.edu/docs/Dasgupta-Papadimitriou-Vazirani.pdf",
+    "img": "https://via.placeholder.com/192x256.png?text=Algorithms+DPV",
+    "writer": "Sanjoy Dasgupta, Christos Papadimitriou, Umesh Vazirani"
+  },
+  {
+    "name": "Structure and Interpretation of Computer Programs (SICP)",
+    "detail": "Huyền thoại SICP về abstractions, interpreters, metalinguistic…",
+    "link": "https://web.mit.edu/6.001/6.037/sicp.pdf",
+    "pdfLink": "https://web.mit.edu/6.001/6.037/sicp.pdf",
+    "img": "https://via.placeholder.com/192x256.png?text=SICP",
+    "writer": "Harold Abelson, Gerald Jay Sussman, Julie Sussman"
+  },
+  {
+    "name": "Category Theory for Programmers",
+    "detail": "Lý thuyết phạm trù cho lập trình viên, biên soạn từ series blog.",
+    "link": "https://github.com/hmemcpy/milewski-ctfp-pdf",
+    "pdfLink": "https://unglueit-files.s3.amazonaws.com/ebf/e90890f0a6ea420c9825657d6f3a851d.pdf",
+    "img": "https://via.placeholder.com/192x256.png?text=CTfP",
+    "writer": "Bartosz Milewski"
+  },
+  {
+    "name": "A Programmer's Introduction to Mathematics",
+    "detail": "Cầu nối giữa tư duy lập trình và toán học hiện đại.",
+    "link": "https://pimbook.org/",
+    "pdfLink": "https://www.gimpert.com/ben/a-programmers-introduction-to-mathematics.pdf",
+    "img": "https://via.placeholder.com/192x256.png?text=PIM",
+    "writer": "Jeremy Kun"
+  },
+  {
+    "name": "Introduction to Information Retrieval",
+    "detail": "Giáo trình IR của Manning–Raghavan–Schütze (bản online Cambridge).",
+    "link": "https://nlp.stanford.edu/IR-book/information-retrieval-book.html",
+    "pdfLink": "https://nlp.stanford.edu/IR-book/pdf/irbookonlinereading.pdf",
+    "img": "https://via.placeholder.com/192x256.png?text=IIR",
+    "writer": "Christopher D. Manning, Prabhakar Raghavan, Hinrich Schütze"
+  },
+  {
+    "name": "Foundations of Data Science",
+    "detail": "Tiền xuất bản Cambridge: nền tảng Lý thuyết Khoa học Dữ liệu.",
+    "link": "http://ttic.edu/blum/book.pdf",
+    "pdfLink": "https://ttic.edu/blum/book.pdf",
+    "img": "https://via.placeholder.com/192x256.png?text=FDS",
+    "writer": "Avrim Blum, John Hopcroft, Ravi Kannan"
+  },
+  {
+    "name": "Competitive Programmer's Handbook",
+    "detail": "Sổ tay lập trình thi đấu: cấu trúc dữ liệu, thuật toán, mẹo thi.",
+    "link": "https://github.com/pllk/cphb",
+    "pdfLink": "https://cses.fi/book.pdf",
+    "img": "https://via.placeholder.com/192x256.png?text=CP+Handbook",
+    "writer": "Antti Laaksonen"
+  },
+  {
+    "name": "Computer Networking: Principles, Protocols and Practice",
+    "detail": "Giáo trình mạng open-source (CNP3) của UCLouvain.",
+    "link": "https://beta.computer-networking.info/",
+    "pdfLink": "https://resources.saylor.org/wwwresources/archived/site/wp-content/uploads/2012/02/Computer-Networking-Principles-Bonaventure-1-30-31-OTC1.pdf",
+    "img": "https://via.placeholder.com/192x256.png?text=CNP3",
+    "writer": "Olivier Bonaventure"
+  },
+  {
+    "name": "The Rust Programming Language",
+    "detail": "Sách chính thức về Rust (bản PDF in ấn).",
+    "link": "https://doc.rust-lang.org/book/",
+    "pdfLink": "https://www.scs.stanford.edu/~zyedidia/docs/rust/rust_book.pdf",
+    "img": "https://via.placeholder.com/192x256.png?text=Rust+Book",
+    "writer": "Steve Klabnik, Carol Nichols"
+  }
+]

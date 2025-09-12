@@ -1,16 +1,22 @@
-import express from 'express'
-import UserController from '../controllers/userController.js'
+// routes/userRoute.js
+import express from "express";
+import UserController from "../controllers/userController.js";
 
-const user_router = express.Router()
+const router = express.Router();
 
-// user_router.route('/').post(UserController.apiAddUser)
-// user_router.route('/').put(UserController.apiUpdateUser)
-// user_router.route('/').delete(UserController.apiDeleteUser)
+// Register
+router.post("/register", UserController.register);
 
-user_router.route('/register')
-    .post(UserController.register)
+// Login
+router.post("/login", UserController.login);
 
-user_router.route('/login')
-    .post(UserController.login)
+// Profile
+router
+  .route("/profile/:id")
+  .get(UserController.getProfile)   // Lấy profile theo id
+  .put(UserController.updateProfile); // Update profile theo id
 
-export default user_router
+router
+  .route("/profile/:id/favorites")
+  .put(UserController.updateFavorite);
+export default router;
