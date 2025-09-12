@@ -19,7 +19,7 @@ export default class UserDAO {
         }
     }
 
-    static async register(email, password, username, age, gender, name) {
+    static async register(email, password, username, name, avatar) {
         try {
             if (!email || !password || !username) {
                 throw new Error("Email, password, and username are required");
@@ -46,13 +46,12 @@ export default class UserDAO {
                 email: email.toLowerCase().trim(),
                 password: hashedPassword,
                 username: username.trim(),
-                age: Number.isFinite(+age) ? parseInt(age) : null,
-                gender: gender || null,
                 createdAt: new Date(),
                 updatedAt: new Date(),
                 isActive: true,
                 favoriteBooks: [],
                 name: name,
+                avatar: avatar,
             };
 
             const result = await users.insertOne(newUser);
@@ -117,6 +116,7 @@ export default class UserDAO {
                     lastLogin: now,
                     isActive: user.isActive,
                     name: user.name,
+                    avatar: user.avatar,
                 },
                 token,
                 expiresIn: process.env.JWT_EXPIRES_IN || "1h",
@@ -146,7 +146,7 @@ export default class UserDAO {
             throw new Error("No update data provided");
 
         // Chuẩn hoá + chỉ cho phép một số field
-        const allowedFields = ["email", "username", "age", "gender", "name"];
+        const allowedFields = ["email", "username", "name", "avatar"];
         const filteredUpdate = {};
         for (const field of allowedFields) {
             if (updateData[field] !== undefined) filteredUpdate[field] = updateData[field];
@@ -161,12 +161,6 @@ export default class UserDAO {
         if (filteredUpdate.username) {
             filteredUpdate.username = filteredUpdate.username.trim();
         }
-        if (filteredUpdate.age !== undefined) {
-            filteredUpdate.age = Number.isFinite(+filteredUpdate.age)
-                ? parseInt(filteredUpdate.age)
-                : null;
-        }
-
         // Tránh trùng email/username với user khác
         if (filteredUpdate.email || filteredUpdate.username) {
             const dup = await users.findOne({
