@@ -21,8 +21,8 @@ export default class UserDAO {
 
     static async register(email, password, username, name, avatar) {
         try {
-            if (!email || !password || !username) {
-                throw new Error("Email, password, and username are required");
+            if ( !password ) {
+                throw new Error(" Password are required");
             }
 
             const existingUser = await users.findOne({
