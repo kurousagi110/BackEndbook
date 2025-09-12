@@ -3,9 +3,9 @@ import UserDAO from "../models/userDAO.js";
 
 export default class UserController {
     static async register(req, res) {
-        const { email, password, username, age, gender, name } = req.body;
+        const { email, password, username, name, avatar } = req.body;
         try {
-            const userId = await UserDAO.register(email, password, username, age, gender, name);
+            const userId = await UserDAO.register(email, password, username, name, avatar);
             res.status(201).json({ message: "User registered successfully", userId });
         } catch (e) {
             res.status(400).json({ error: e.message });
@@ -46,9 +46,9 @@ export default class UserController {
 
     static async updateProfile(req, res) {
         const { id } = req.params; // <— đồng bộ với route
-        const { email, username, age, gender,name } = req.body;
+        const { email, password, username, name, avatar } = req.body;
         try {
-            const updatedUser = await UserDAO.updateUser(id, { email, username, age, gender,name });
+            const updatedUser = await UserDAO.updateUser(id, { email, password, username, name, avatar });
             res.status(200).json({ message: "Profile updated successfully", user: updatedUser });
         } catch (e) {
             if (e.message.includes("Invalid") || e.message.includes("required")) {
