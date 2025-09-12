@@ -29,8 +29,12 @@ export default class UserDAO {
                 $or: [{ email: email.toLowerCase().trim() }, { username: username.trim() }],
             });
             if (existingUser) {
-                if (existingUser.email === email.toLowerCase().trim())
-                    throw new Error("User with this email already exists");
+            // Chỉ kiểm tra email nếu email được cung cấp
+            if (email !== undefined && email !== null && email !== '' && 
+                existingUser.email === email.toLowerCase().trim()) {
+                throw new Error("User with this email already exists");
+            }
+            if (existingUser.username === username.trim()) {
                 throw new Error("Username is already taken");
             }
 
