@@ -39,15 +39,15 @@ export default class UserDAO {
             //     ];
             // }
 
-            const existingUser = await users.findOne(email !== undefined && email !== null && email !== '' ? { email: email.toLowerCase().trim() } : { username: username.trim() });
+            const existingUser = await users.findOne(email !== undefined && email !== null && email !== '' ? { email: email.toLowerCase() } : { username: username });
 
             if (existingUser) {
                 // Chỉ kiểm tra email nếu email được cung cấp
                 if (email !== undefined && email !== null && email !== '' &&
-                    existingUser.email === email.toLowerCase().trim()) {
+                    existingUser.email === email.toLowerCase()) {
                     throw new Error("User with this email already exists");
                 }
-                if (existingUser.username === username.trim()) {
+                if (existingUser.username === username) {
                     throw new Error("Username is already taken");
                 }
             }
@@ -56,7 +56,8 @@ export default class UserDAO {
 
             const newUser = {
                 password: hashedPassword,
-                username: username.trim(),
+                username: username,
+                email: email,
                 createdAt: new Date(),
                 updatedAt: new Date(),
                 isActive: true,
