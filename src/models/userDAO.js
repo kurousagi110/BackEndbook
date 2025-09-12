@@ -20,15 +20,27 @@ export default class UserDAO {
     }
 
     static async register(email, password, username, name, avatar) {
-        try {
-            if ( !password ) {
-                throw new Error(" Password are required");
-            }
+    try {
+        if (!password) {
+            throw new Error("Password is required");
+        }
 
-            const existingUser = await users.findOne({
-                $or: [{ email: email.toLowerCase().trim() }, { username: username.trim() }],
-            });
-            if (existingUser) {
+        if (password.length < 8) {
+            throw new Error("Password must be at least 8 characters long");
+        }
+
+        // Tạo query kiểm tra user tồn tại, chỉ kiểm tra email nếu email được cung cấp
+        const query = { username: username.trim() };
+        if (email !== undefined && email !== null && email !== '') {
+            query.$or = [
+                { email: email.toLowerCase().trim() },
+                { username: username.trim() }
+            ];
+        }
+
+        const existingUser = await users.findOne(query);
+        
+        if (existingUser) {
             // Chỉ kiểm tra email nếu email được cung cấp
             if (email !== undefined && email !== null && email !== '' && 
                 existingUser.email === email.toLowerCase().trim()) {
@@ -37,31 +49,33 @@ export default class UserDAO {
             if (existingUser.username === username.trim()) {
                 throw new Error("Username is already taken");
             }
-
-            if (password.length < 8)
-                throw new Error("Password must be at least 8 characters long");
-
-            const hashedPassword = await bcrypt.hash(password, 12);
-
-            const newUser = {
-                email: email.toLowerCase().trim(),
-                password: hashedPassword,
-                username: username.trim(),
-                createdAt: new Date(),
-                updatedAt: new Date(),
-                isActive: true,
-                favoriteBooks: [],
-                name: name,
-                avatar: avatar,
-            };
-
-            const result = await users.insertOne(newUser);
-            return result.insertedId;
-        } catch (error) {
-            console.error(`Unable to register user: ${error.message}`);
-            throw error;
         }
+
+        const hashedPassword = await bcrypt.hash(password, 12);
+
+        const newUser = {
+            password: hashedPassword,
+            username: username.trim(),
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            isActive: true,
+            favoriteBooks: [],
+            name: name,
+            avatar: avatar,
+        };
+
+        // Chỉ thêm email nếu email được cung cấp
+        if (email !== undefined && email !== null && email !== '') {
+            newUser.email = email.toLowerCase().trim();
+        }
+
+        const result = await users.insertOne(newUser);
+        return result.insertedId;
+    } catch (error) {
+        console.error(`Unable to register user: ${error.message}`);
+        throw error;
     }
+}
 
     static async login(identifier, password) {
         try {
