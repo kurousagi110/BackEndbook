@@ -37,9 +37,6 @@ export default class UserDAO {
             if (password.length < 8)
                 throw new Error("Password must be at least 8 characters long");
 
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) throw new Error("Invalid email format");
-
             const hashedPassword = await bcrypt.hash(password, 12);
 
             const newUser = {
