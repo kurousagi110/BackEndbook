@@ -19,7 +19,7 @@ export default class UserDAO {
         }
     }
 
-    static async register(email, password, username, age, gender) {
+    static async register(email, password, username, age, gender, name) {
         try {
             if (!email || !password || !username) {
                 throw new Error("Email, password, and username are required");
@@ -52,6 +52,7 @@ export default class UserDAO {
                 updatedAt: new Date(),
                 isActive: true,
                 favoriteBooks: [],
+                name: name,
             };
 
             const result = await users.insertOne(newUser);
@@ -115,9 +116,9 @@ export default class UserDAO {
                     createdAt: user.createdAt,
                     lastLogin: now,
                     isActive: user.isActive,
+                    name: user.name,
                 },
                 token,
-                tokenType: "Bearer",
                 expiresIn: process.env.JWT_EXPIRES_IN || "1h",
             };
         } catch (error) {
@@ -145,7 +146,7 @@ export default class UserDAO {
             throw new Error("No update data provided");
 
         // Chuẩn hoá + chỉ cho phép một số field
-        const allowedFields = ["email", "username", "age", "gender"];
+        const allowedFields = ["email", "username", "age", "gender", "name"];
         const filteredUpdate = {};
         for (const field of allowedFields) {
             if (updateData[field] !== undefined) filteredUpdate[field] = updateData[field];
