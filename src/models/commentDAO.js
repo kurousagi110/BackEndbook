@@ -42,7 +42,7 @@ export default class CommentDAO {
     // Lấy user kèm name/avatar/img để chèn vào comment
     const user = await usersCollection.findOne(
       { _id: userId },
-      { projection: { _id: 1, name: 1, avatar: 1, img: 1 } }
+      { projection: { _id: 1, username: 1, avatar: 1, img: 1 } }
     );
     if (!user) throw new Error("User not found");
 
