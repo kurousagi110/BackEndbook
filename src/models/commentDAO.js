@@ -4,14 +4,16 @@ const ObjectId = mongodb.ObjectId;
 
 let commentsCollection;
 let booksCollection;
+let usersCollection;
 
 export default class CommentDAO {
   static async injectDB(conn) {
-    if (commentsCollection && booksCollection) return;
+    if (commentsCollection && booksCollection && usersCollection) return;
     try {
       const db = conn.db(process.env.MOVIEREVIEWS_DB_NAME);
       commentsCollection = await db.collection("comments");
       booksCollection = await db.collection("books");
+      usersCollection = await db.collection("users");
       // books: cần có field: rating (Number), ratingCount (Number)
     } catch (e) {
       console.error(`Unable to establish collection handles in CommentDAO: ${e}`);
@@ -23,6 +25,12 @@ export default class CommentDAO {
    * data = { id_book, id_user, comment, rating? }
    */
   static async addComment(data) {
+    const userId = new ObjectId(data.id_user);
+    const user = await usersCollection.findOne(
+      { _id: userId },
+      { projection: { _id: 1 } }
+    );
+    if (!user) throw new Error("User not found");
     const now = new Date();
     const doc = {
       id_book: new ObjectId(data.id_book),
@@ -32,8 +40,8 @@ export default class CommentDAO {
       createdAt: now,
       updatedAt: now,
       replies: [],
-      img: data.img || null,
-      name : data.name || null,
+      img: user.img || null,
+      name: user.name || null,
     };
 
     const session = commentsCollection.client.startSession();
