@@ -24,69 +24,113 @@ export default class CommentDAO {
    * Tạo comment mới (có thể có rating). Sau khi insert, cập nhật Book.rating và Book.ratingCount.
    * data = { id_book, id_user, comment, rating? }
    */
-  static async addComment(data) {
-    const userId = new ObjectId(data.id_user);
-    const user = await usersCollection.findOne(
-      { _id: userId },
-      { projection: { _id: 1 } }
-    );
-    if (!user) throw new Error("User not found");
-    const now = new Date();
-    const doc = {
-      id_book: new ObjectId(data.id_book),
-      id_user: new ObjectId(data.id_user),
-      comment: data.comment,
-      rating: typeof data.rating === "number" ? data.rating : null,
-      createdAt: now,
-      updatedAt: now,
-      replies: [],
-      img: user.img || null,
-      name: user.name || null,
-    };
+static async addComment(data) {
+  // Validate trước
+  if (!data?.id_book || !ObjectId.isValid(data.id_book)) {
+    throw new Error("Invalid book id");
+  }
+  if (!data?.id_user || !ObjectId.isValid(data.id_user)) {
+    throw new Error("Invalid user id");
+  }
+  if (typeof data.comment !== "string" || !data.comment.trim()) {
+    throw new Error("Comment is required");
+  }
 
-    const session = commentsCollection.client.startSession();
-    try {
-      let insertResult;
-      await session.withTransaction(async () => {
-        insertResult = await commentsCollection.insertOne(doc, { session });
+  const userId = new ObjectId(data.id_user);
+  const bookId = new ObjectId(data.id_book);
 
-        // Nếu có rating thì cập nhật book bằng aggregation pipeline (atomic)
-        if (typeof doc.rating === "number") {
-          await booksCollection.updateOne(
-            { _id: doc.id_book },
-            [
-              {
-                $set: {
-                  rating: {
-                    $cond: [
-                      { $gt: ["$ratingCount", 0] },
-                      {
-                        $divide: [
-                          { $add: [{ $multiply: ["$rating", "$ratingCount"] }, doc.rating] },
-                          { $add: ["$ratingCount", 1] },
-                        ],
-                      },
-                      doc.rating, // nếu ratingCount = 0
-                    ],
-                  },
-                  updatedAt: now,
+  // Lấy user kèm name/avatar/img để chèn vào comment
+  const user = await usersCollection.findOne(
+    { _id: userId },
+    { projection: { _id: 1, name: 1, avatar: 1, img: 1 } }
+  );
+  if (!user) throw new Error("User not found");
+
+  // Đảm bảo book tồn tại (giúp transaction fail sớm nếu sai id)
+  const book = await booksCollection.findOne(
+    { _id: bookId },
+    { projection: { _id: 1, rating: 1, ratingCount: 1 } }
+  );
+  if (!book) throw new Error("Book not found");
+
+  const now = new Date();
+  const numericRating = typeof data.rating === "number" ? data.rating : null;
+
+  const doc = {
+    id_book: bookId,
+    id_user: userId,
+    comment: data.comment,
+    rating: numericRating,           // có thể null
+    createdAt: now,
+    updatedAt: now,
+    replies: [],
+    img: user.img ?? user.avatar ?? null, // ưu tiên img, fallback avatar
+    name: user.name ?? null,
+  };
+
+  // NOTE: nên start session từ MongoClient (không phải từ collection)
+  // giả sử bạn đang có biến `mongoClient` khi injectDB, ở đây dùng tạm cách bạn đang dùng:
+  const session = commentsCollection.client.startSession();
+
+  try {
+    let insertResult;
+    await session.withTransaction(async () => {
+      // 1) Insert comment
+      insertResult = await commentsCollection.insertOne(doc, { session });
+
+      // 2) Nếu có rating, tăng ratingCount rồi tính lại rating
+      if (typeof numericRating === "number") {
+        await booksCollection.updateOne(
+          { _id: bookId },
+          [
+            // Tăng count trước & lưu tạm oldCount/oldRating để tính toán
+            {
+              $set: {
+                _oldCount: { $ifNull: ["$ratingCount", 0] },
+                _oldRating: { $ifNull: ["$rating", 0] },
+                ratingCount: { $add: [{ $ifNull: ["$ratingCount", 0] }, 1] },
+                updatedAt: now,
+              },
+            },
+            // Tính lại rating dựa trên oldCount/oldRating + numericRating, chia cho count mới
+            {
+              $set: {
+                rating: {
+                  $cond: [
+                    { $gt: ["$_oldCount", 0] },
+                    {
+                      $divide: [
+                        {
+                          $add: [
+                            { $multiply: ["$_oldRating", "$_oldCount"] },
+                            numericRating,
+                          ],
+                        },
+                        "$ratingCount", // lúc này đã là count mới
+                      ],
+                    },
+                    numericRating, // nếu trước đó chưa có rating nào
+                  ],
                 },
               },
-              { $set: { ratingCount: { $add: ["$ratingCount", 1] } } },
-            ],
-            { session }
-          );
-        }
-      });
+            },
+            // Dọn field tạm
+            { $unset: ["_oldCount", "_oldRating"] },
+          ],
+          { session }
+        );
+      }
+    });
 
-      return insertResult.insertedId;
-    } catch (e) {
-      console.error(`addComment failed: ${e}`);
-      throw e;
-    } finally {
-      await session.endSession();
-    }
+    return insertResult.insertedId;
+  } catch (e) {
+    console.error(`addComment failed: ${e}`);
+    throw e;
+  } finally {
+    await session.endSession();
   }
+}
+
 
   /**
    * Thêm reply vào một comment
