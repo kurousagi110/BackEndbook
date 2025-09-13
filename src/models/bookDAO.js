@@ -190,8 +190,8 @@ export default class BookDAO {
                     throw new Error(`Invalid period: ${period}`);
             }        // Giả sử có trường updatedAt để xác định thời gian cập nhật gần đây
             const books = await booksCollection
-                .find({ updatedAt: { $gte: startDate } })
-                .sort({ viewCount: -1 })
+                .find({ rating: { $gt: 0 } })
+                .sort({ rating: -1 })
                 .limit(limit)
                 .toArray();
             return books;
