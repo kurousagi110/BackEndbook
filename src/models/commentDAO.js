@@ -32,6 +32,8 @@ export default class CommentDAO {
       createdAt: now,
       updatedAt: now,
       replies: [],
+      img: data.img || null,
+      name : data.name || null,
     };
 
     const session = commentsCollection.client.startSession();

@@ -141,4 +141,37 @@ export default class BookController {
             return res.status(500).json({ error: "Internal server error" });
         }
     }
+    static async incrementView(req, res) {
+        try {
+            const { id } = req.params;
+            const updated = await BookDAO.incrementViewCount(id);
+            if (!updated) {
+                return res.status(404).json({ error: "Book not found" });
+            }
+            return res.status(200).json({ message: "View count incremented successfully" });
+        } catch (e) {
+            console.error("Increment view count error:", e);
+            return res.status(500).json({ error: "Internal server error" });
+        }
+    }
+    static async getTopRatedBooks(req, res) {
+        try {
+            const limit = Math.min(Math.max(parseInt(req.query.limit) || 10, 1), 50); // giới hạn tối đa 50
+            const books = await BookDAO.getTopRatedBooks(limit);
+            return res.status(200).json(books);
+        } catch (e) {
+            console.error("Get top rated books error:", e);
+            return res.status(500).json({ error: "Internal server error" });
+        }
+    }
+    static async getTopDayWeekMonthYearBooks(req, res) {
+        try {
+            const { period, limit } = req.query;
+            const books = await BookDAO.getTopDayWeekMonthYearBooks(period, limit);
+            return res.status(200).json(books);
+        } catch (e) {
+            console.error("Get top day/week/month/year books error:", e);
+            return res.status(500).json({ error: "Internal server error" });
+        }
+    }
 }

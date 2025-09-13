@@ -21,5 +21,9 @@ router.get("/search", BookController.searchBooks);
 router.get("/:id", BookController.getBookById);
 router.put("/:id", BookController.updateBook);
 router.delete("/:id", BookController.deleteBook);
+router.post("/:id/increment-view", BookController.incrementView);
+
+router.get("/top/viewed", BookController.getTopRatedBooks);
+router.get("/top/:period", BookController.getTopDayWeekMonthYearBooks); // period: day, week, month, year
 
 export default router;

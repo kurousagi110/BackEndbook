@@ -5,7 +5,7 @@ export default class CommentController {
   static async create(req, res) {
     try {
       // yêu cầu: req.body = { id_book, id_user, comment, rating? }
-      const { id_book, id_user, comment, rating } = req.body;
+      const { id_book, id_user, comment, rating, img, name } = req.body;
 
       if (!id_book || !id_user || !comment) {
         return res.status(400).json({ error: "id_book, id_user, comment are required" });
@@ -14,7 +14,7 @@ export default class CommentController {
         return res.status(400).json({ error: "rating must be a number 0..5" });
       }
 
-      const insertedId = await CommentDAO.addComment({ id_book, id_user, comment, rating });
+      const insertedId = await CommentDAO.addComment({ id_book, id_user, comment, rating, img, name });
       return res.status(201).json({ _id: insertedId });
     } catch (e) {
       console.error(e);

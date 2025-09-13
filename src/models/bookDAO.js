@@ -142,4 +142,62 @@ export default class BookDAO {
             throw e;
         }
     }
+    static async incrementViewCount(bookId) {
+        try {
+            const id = new ObjectId(bookId);
+            const result = await booksCollection.updateOne(
+                { _id: id },
+                { $inc: { viewCount: 1 } }
+            );
+            return result.matchedCount > 0 && result.modifiedCount > 0;
+        } catch (e) {
+            console.error(`Unable to increment view count: ${e}`);
+            throw e;
+        }
+    }
+    static async getTopViewedBooks(limit = 10) {
+        try {
+            const books = await booksCollection
+                .find({})
+                .sort({ viewCount: -1 })
+                .limit(limit)
+                .toArray();
+            return books;
+        } catch (e) {
+            console.error(`Unable to get top viewed books: ${e}`);
+            throw e;
+        }
+    }
+    static async getTopDayWeekMonthYearBooks(period = 'day', limit = 10) {
+        try {
+            const now = new Date();
+            let startDate; // Ngày bắt đầu của khoảng thời gian
+
+            switch (period) {
+                case 'day':
+                    startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+                    break;
+                case 'week':
+                    startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7);
+                    break;
+                case 'month':
+                    startDate = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate());
+                    break;
+                case 'year':
+                    startDate = new Date(now.getFullYear() - 1, now.getMonth(), now.getDate());
+                    break;
+                default:
+                    throw new Error(`Invalid period: ${period}`);
+            }        // Giả sử có trường updatedAt để xác định thời gian cập nhật gần đây
+            const books = await booksCollection
+                .find({ updatedAt: { $gte: startDate } })
+                .sort({ viewCount: -1 })
+                .limit(limit)
+                .toArray();
+            return books;
+        } catch (e) {
+            console.error(`Unable to get top ${period} books: ${e}`);
+            throw e;
+        }
+    }
 }
