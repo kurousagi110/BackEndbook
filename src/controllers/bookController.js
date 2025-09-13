@@ -25,42 +25,50 @@ export default class BookController {
         }
     }
 
-    // GET /books?page=1&limit=10&search=python (search optional)
+    // // GET /books?page=1&limit=10&search=python (search optional)
+    // static async getBooks(req, res) {
+    //     try {
+    //         let { page = 1, limit = 10, search = "" } = req.query;
+    //         page = Math.max(parseInt(page) || 1, 1);
+    //         limit = Math.min(Math.max(parseInt(limit) || 10, 1), 100); // cap 100
+
+    //         const skip = (page - 1) * limit;
+
+    //         const filter = {};
+    //         if (search) {
+    //             // tìm theo name hoặc writer (case-insensitive)
+    //             filter.$or = [
+    //                 { name: { $regex: search, $options: "i" } },
+    //                 { writer: { $regex: search, $options: "i" } },
+    //             ];
+    //         }
+
+    //         const { books, total } = await BookDAO.getBooks({ filter, skip, limit });
+
+    //         return res.status(200).json({
+    //             total,                  // tổng số bản ghi
+    //             page,
+    //             limit,
+    //             totalPages: Math.max(Math.ceil(total / limit), 1),
+    //             hasPrev: page > 1,
+    //             hasNext: skip + books.length < total,
+    //             count: books.length,    // số bản ghi trang hiện tại
+    //             books,
+    //         });
+    //     } catch (e) {
+    //         console.error("Get books error:", e);
+    //         return res.status(500).json({ error: "Internal server error" });
+    //     }
+    // }
     static async getBooks(req, res) {
         try {
-            let { page = 1, limit = 10, search = "" } = req.query;
-            page = Math.max(parseInt(page) || 1, 1);
-            limit = Math.min(Math.max(parseInt(limit) || 10, 1), 100); // cap 100
-
-            const skip = (page - 1) * limit;
-
-            const filter = {};
-            if (search) {
-                // tìm theo name hoặc writer (case-insensitive)
-                filter.$or = [
-                    { name: { $regex: search, $options: "i" } },
-                    { writer: { $regex: search, $options: "i" } },
-                ];
-            }
-
-            const { books, total } = await BookDAO.getBooks({ filter, skip, limit });
-
-            return res.status(200).json({
-                total,                  // tổng số bản ghi
-                page,
-                limit,
-                totalPages: Math.max(Math.ceil(total / limit), 1),
-                hasPrev: page > 1,
-                hasNext: skip + books.length < total,
-                count: books.length,    // số bản ghi trang hiện tại
-                books,
-            });
+            const books = await BookDAO.getBooks();
+            return res.status(200).json(books);
         } catch (e) {
             console.error("Get books error:", e);
             return res.status(500).json({ error: "Internal server error" });
         }
     }
-
 
     // GET /books/:id
     static async getBookById(req, res) {

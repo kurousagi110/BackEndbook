@@ -7,6 +7,7 @@ import e from "express";
 const { ObjectId } = mongodb;
 
 let users;
+let books; // Tham chiếu collection books để kiểm tra tồn tại khi thêm vào favoriteBooks
 
 export default class UserDAO {
     static async injectDB(conn) {
@@ -15,6 +16,9 @@ export default class UserDAO {
             users = await conn
                 .db(process.env.MOVIEREVIEWS_DB_NAME)
                 .collection("users");
+            books = await conn
+                .db(process.env.MOVIEREVIEWS_DB_NAME)
+                .collection("books");
         } catch (e) {
             console.error(`Unable to establish collection handle in userDAO: ${e}`);
         }
@@ -244,9 +248,8 @@ export default class UserDAO {
         const bId = new ObjectId(bookId);
 
         // Lấy danh sách hiện tại để quyết định
-        const doc = await users.findOne({ _id }, { projection: { favoriteBooks: 1 } });
-        if (!doc) throw new Error("User not found");
-
+        const doc = await users.findOne({ _id: new ObjectId(userId) }, { projection: { favoriteBooks: 1 } });
+        console.log(doc)
         let op; // 'add' | 'remove'
         if (action === "add" || action === "remove") {
             op = action;
@@ -265,8 +268,64 @@ export default class UserDAO {
             update,
             { returnDocument: "after", projection: { password: 0 } }
         );
-        if (!result.value) throw new Error("User not found");
         return { actionApplied: op === "add" ? "added" : "removed", user: result.value };
+    }
+
+
+    static async getFavoriteBooks(userId) {
+        if (!userId) throw new Error("User ID is required");
+        if (!ObjectId.isValid(userId)) throw new Error("Invalid user ID format");
+
+        // Lấy user để lấy danh sách ID sách yêu thích
+        const user = await users.findOne(
+            { _id: new ObjectId(userId) },
+            { projection: { favoriteBooks: 1 } }
+        );
+        if (!user) throw new Error("User not found");
+
+        const favIdsRaw = user.favoriteBooks || [];
+        if (favIdsRaw.length === 0) return [];
+
+        // Chuẩn hoá ID về ObjectId (phòng khi lưu dạng string)
+        const favIds = favIdsRaw.map((id) =>
+            typeof id === "string" ? new ObjectId(id) : id
+        );
+
+        // Lấy toàn bộ sách bằng một query
+        const booksDocs = await books
+            .find({ _id: { $in: favIds } })
+            .toArray();
+
+        // Giữ nguyên thứ tự theo mảng favoriteBooks
+        const orderMap = new Map(favIds.map((id, idx) => [id.toHexString(), idx]));
+        booksDocs.sort(
+            (a, b) =>
+                orderMap.get(a._id.toHexString()) - orderMap.get(b._id.toHexString())
+        );
+
+        return booksDocs;
+    }
+    static async deleteAllFavorite(userId) {
+        if (!userId) throw new Error("User ID is required");
+        if (!ObjectId.isValid(userId)) throw new Error("Invalid user ID format");
+
+        const _id = new ObjectId(userId);
+
+        // Lấy danh sách hiện tại để biết đã có bao nhiêu mục sẽ bị xoá
+        const current = await users.findOne(
+            { _id: new ObjectId(userId)},
+            { projection: { favoriteBooks: 1 } }
+        );
+
+        const removedCount = (current.favoriteBooks || []).length;
+
+        // Xoá toàn bộ favorites
+        const result = await users.findOneAndUpdate(
+            { _id },
+            { $set: { favoriteBooks: [], updatedAt: new Date() } },
+            { returnDocument: "after", projection: { password: 0 } }
+        );
+        return { removedCount, user: result.value };
     }
 
 }

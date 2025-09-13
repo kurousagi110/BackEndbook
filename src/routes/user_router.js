@@ -19,4 +19,8 @@ router
 router
   .route("/profile/:id/favorites")
   .put(UserController.updateFavorite);
+
+router.get("/:id/favorites", UserController.getFavorites);    // query: page, limit, preserveOrder, fields
+router.delete("/:id/favorites", UserController.clearAllFavorites);
+
 export default router;
