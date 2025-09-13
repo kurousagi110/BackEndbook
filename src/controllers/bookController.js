@@ -154,10 +154,9 @@ export default class BookController {
             return res.status(500).json({ error: "Internal server error" });
         }
     }
-    static async getTopRatedBooks(req, res) {
+    static async getTopViewedBooks(req, res) {
         try {
-            const limit = Math.min(Math.max(parseInt(req.query.limit) || 10, 1), 50); // giới hạn tối đa 50
-            const books = await BookDAO.getTopRatedBooks(limit);
+            const books = await BookDAO.getTopViewedBooks();
             return res.status(200).json(books);
         } catch (e) {
             console.error("Get top rated books error:", e);

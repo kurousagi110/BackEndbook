@@ -23,7 +23,7 @@ router.put("/:id", BookController.updateBook);
 router.delete("/:id", BookController.deleteBook);
 router.post("/:id/increment-view", BookController.incrementView);
 
-router.get("/top/viewed", BookController.getTopRatedBooks);
+router.get("/top/viewed", BookController.getTopViewedBooks);
 router.get("/top/:period", BookController.getTopDayWeekMonthYearBooks); // period: day, week, month, year
 
 export default router;
