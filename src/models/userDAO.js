@@ -219,8 +219,6 @@ export default class UserDAO {
             { $set: filteredUpdate },
             { returnDocument: "after", projection: { password: 0 } }
         );
-
-        if (!result.value) throw new Error("User not found");
         return result.value;
     }
 
@@ -233,8 +231,6 @@ export default class UserDAO {
             { $set: { isActive: false, updatedAt: new Date() } },
             { returnDocument: "after", projection: { password: 0 } }
         );
-
-        if (!result.value) throw new Error("User not found");
         return result.value;
     }
     // models/userDAO.js
