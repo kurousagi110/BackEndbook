@@ -125,7 +125,7 @@ export default class UserDAO {
                     username: user.username
                 },
                 process.env.JWT_SECRET,
-                { expiresIn: process.env.JWT_EXPIRES_IN || "1h" }
+                { expiresIn: process.env.JWT_EXPIRES_IN || "23h" }
             );
 
             const now = new Date();
