@@ -65,7 +65,7 @@ export default class CommentDAO {
       updatedAt: now,
       replies: [],
       img: user.img ?? user.avatar ?? null, // ưu tiên img, fallback avatar
-      name: user.name ?? null,
+      name: user.username ?? null,
     };
 
     // NOTE: nên start session từ MongoClient (không phải từ collection)
