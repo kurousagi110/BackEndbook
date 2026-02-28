@@ -6,8 +6,9 @@
     "pdfLink": "https://assets.openstax.org/oscms-prodcms/media/documents/Introduction_to_Python_Programming_-_WEB.pdf",
     "img": "https://m.media-amazon.com/images/I/419NS17nPKL._UF1000,1000_QL80_.jpg",
     "writer": "Udayan Das, Aubrey Lawson, Chris Mayfield, Narges Norouzi",
-    "view": 0,
-    "rating": 5
+    "view": 78,
+    "rating": 5,
+    "ratingCount": 52
   },
   {
     "name": "Think Python (2nd Edition)",
@@ -16,8 +17,9 @@
     "pdfLink": "https://greenteapress.com/thinkpython2/thinkpython2.pdf",
     "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjuoHFVIaHV1EULKbaz8lCm5VZ_SgmtQ68tw&s",
     "writer": "Allen B. Downey",
-    "view": 0,
-    "rating": 5
+    "view": 326,
+    "rating": 5,
+    "ratingCount": 96
   },
   {
     "name": "The Linux Command Line",
@@ -26,8 +28,9 @@
     "pdfLink": "https://sourceforge.net/projects/linuxcommand/files/TLCL/19.01/TLCL-19.01.pdf/download",
     "img": "https://m.media-amazon.com/images/I/71PfXiJBq1L._UF1000,1000_QL80_.jpg",
     "writer": "William E. Shotts, Jr.",
-    "view": 0,
-    "rating": 5
+    "view": 664,
+    "rating": 5,
+    "ratingCount": 93
   },
   {
     "name": "Pro Git (2nd Edition)",
@@ -36,8 +39,9 @@
     "pdfLink": "https://progit2.s3.amazonaws.com/en/2016-03-22-f3531/progit-en.1084.pdf",
     "img": "https://bizweb.dktcdn.net/thumb/grande/100/527/077/products/198f37b0c4f7447f97641fac26bc02.jpg?v=1728468900547",
     "writer": "Scott Chacon, Ben Straub",
-    "view": 0,
-    "rating": 5
+    "view": 985,
+    "rating": 5,
+    "ratingCount": 69
   },
   {
     "name": "Dive into Deep Learning",
@@ -46,8 +50,9 @@
     "pdfLink": "https://d2l.ai/d2l-en.pdf",
     "img": "https://i.ebayimg.com/images/g/Sw0AAeSwx0Votaj5/s-l960.webp",
     "writer": "Aston Zhang, Zachary C. Lipton, Mu Li, Alexander J. Smola",
-    "view": 0,
-    "rating": 5
+    "view": 345,
+    "rating": 5,
+    "ratingCount": 45
   },
   {
     "name": "Introduction to Computer Science",
@@ -56,8 +61,9 @@
     "pdfLink": "https://assets.openstax.org/oscms-prodcms/media/documents/Introduction_To_Computer_Science_-_WEB.pdf",
     "img": "https://m.media-amazon.com/images/I/61-Fa8CtCdL._UF894,1000_QL80_.jpg",
     "writer": "OpenStax",
-    "view": 0,
-    "rating": 5
+    "view": 647,
+    "rating": 5,
+    "ratingCount": 0
   },
   {
     "name": "Think Stats (2nd Edition)",
@@ -66,8 +72,9 @@
     "pdfLink": "https://greenteapress.com/thinkstats2/thinkstats2.pdf",
     "img": "https://m.media-amazon.com/images/I/91nFStDeD4L._UF1000,1000_QL80_.jpg",
     "writer": "Allen B. Downey",
-    "view": 0,
-    "rating": 5
+    "view": 500,
+    "rating": 5,
+    "ratingCount": 0
   },
   {
     "name": "Think DSP",
@@ -76,8 +83,9 @@
     "pdfLink": "https://greenteapress.com/thinkdsp/thinkdsp.pdf",
     "img": "https://m.media-amazon.com/images/I/91SZNjXAe+L._UF1000,1000_QL80_.jpg",
     "writer": "Allen B. Downey",
-    "view": 0,
-    "rating": 5
+    "view": 422,
+    "rating": 5,
+    "ratingCount": 0
   },
   {
     "name": "Operating Systems: Three Easy Pieces",
@@ -86,8 +94,9 @@
     "pdfLink": "https://techiefood4u.files.wordpress.com/2020/02/operating_systems_three_easy_pieces.pdf",
     "img": "https://m.media-amazon.com/images/I/61UIpzqnkRL._UF1000,1000_QL80_.jpg",
     "writer": "Remzi H. Arpaci-Dusseau, Andrea C. Arpaci-Dusseau",
-    "view": 0,
-    "rating": 5
+    "view": 933,
+    "rating": 5,
+    "ratingCount": 0
   },
   {
     "name": "An Introduction to Statistical Learning (2nd Edition)",
@@ -96,8 +105,9 @@
     "pdfLink": "https://www.karlin.mff.cuni.cz/~pesta/NMFM334/StatLearning/Book2nd/ISLRv2_website.pdf",
     "img": "https://m.media-amazon.com/images/I/61XlRprVVML.jpg",
     "writer": "Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani",
-    "view": 0,
-    "rating": 5
+    "view": 12,
+    "rating": 5,
+    "ratingCount": 0
   },
   {
     "name": "Mathematics for Machine Learning",
@@ -106,8 +116,9 @@
     "pdfLink": "https://mml-book.github.io/book/mml-book.pdf",
     "img": "https://m.media-amazon.com/images/I/71ZPgUTDn6L._UF1000,1000_QL80_.jpg",
     "writer": "Marc Peter Deisenroth, A. Aldo Faisal, Cheng Soon Ong",
-    "view": 0,
-    "rating": 5
+    "view": 3694,
+    "rating": 5,
+    "ratingCount": 0
   },
   {
     "name": "Algorithms (Jeff Erickson)",
@@ -116,8 +127,9 @@
     "pdfLink": "https://jeffe.cs.illinois.edu/teaching/algorithms/book/Algorithms-JeffE.pdf",
     "img": "https://freecomputerbooks.com/covers/Lecture-Notes-for-the-Algorithms-by-Jeff-Erickson.jpgs",
     "writer": "Jeff Erickson",
-    "view": 0,
-    "rating": 5
+    "view": 217,
+    "rating": 5,
+    "ratingCount": 0
   },
   {
     "name": "Algorithms (Dasgupta–Papadimitriou–Vazirani)",
@@ -126,8 +138,9 @@
     "pdfLink": "https://algorithmics.lsi.upc.edu/docs/Dasgupta-Papadimitriou-Vazirani.pdf",
     "img": "https://m.media-amazon.com/images/I/81RbvaR4WFL._UF1000,1000_QL80_.jpg",
     "writer": "Sanjoy Dasgupta, Christos Papadimitriou, Umesh Vazirani",
-    "view": 0,
-    "rating": 5
+    "view": 693,
+    "rating": 5,
+    "ratingCount": 0
   },
   {
     "name": "Structure and Interpretation of Computer Programs (SICP)",
@@ -136,8 +149,9 @@
     "pdfLink": "https://web.mit.edu/6.001/6.037/sicp.pdf",
     "img": "https://m.media-amazon.com/images/I/71lyP-LJi0L._UF1000,1000_QL80_.jpg",
     "writer": "Harold Abelson, Gerald Jay Sussman, Julie Sussman",
-    "view": 0,
-    "rating": 5
+    "view": 749,
+    "rating": 5,
+    "ratingCount": 0
   },
   {
     "name": "Category Theory for Programmers",
@@ -146,8 +160,9 @@
     "pdfLink": "https://unglueit-files.s3.amazonaws.com/ebf/e90890f0a6ea420c9825657d6f3a851d.pdf",
     "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVKUh09vlkUGy4eW647v6qyUC4vqak1wKelQ&s",
     "writer": "Bartosz Milewski",
-    "view": 0,
-    "rating": 5
+    "view": 1562,
+    "rating": 5,
+    "ratingCount": 0
   },
   {
     "name": "A Programmer's Introduction to Mathematics",
@@ -156,8 +171,9 @@
     "pdfLink": "https://www.gimpert.com/ben/a-programmers-introduction-to-mathematics.pdf",
     "img": "https://tomcircle.wordpress.com/wp-content/uploads/2018/12/screenshot_20181202_1442424003445996115223108.jpg",
     "writer": "Jeremy Kun",
-    "view": 0,
-    "rating": 5
+    "view": 751,
+    "rating": 5,
+    "ratingCount": 0
   },
   {
     "name": "Introduction to Information Retrieval",
@@ -166,8 +182,9 @@
     "pdfLink": "https://nlp.stanford.edu/IR-book/pdf/irbookonlinereading.pdf",
     "img": "https://media.springernature.com/full/springer-static/cover-hires/book/978-3-662-48313-8",
     "writer": "Christopher D. Manning, Prabhakar Raghavan, Hinrich Schütze",
-    "view": 0,
-    "rating": 5
+    "view": 913,
+    "rating": 5,
+    "ratingCount": 0
   },
   {
     "name": "Foundations of Data Science",
@@ -176,8 +193,9 @@
     "pdfLink": "https://ttic.edu/blum/book.pdf",
     "img": "https://m.media-amazon.com/images/I/81O+YkUG1aL._UF1000,1000_QL80_.jpg",
     "writer": "Avrim Blum, John Hopcroft, Ravi Kannan",
-    "view": 0,
-    "rating": 5
+    "view": 25,
+    "rating": 5,
+    "ratingCount": 0
   },
   {
     "name": "Competitive Programmer's Handbook",
@@ -186,8 +204,9 @@
     "pdfLink": "https://cses.fi/book.pdf",
     "img": "https://i.ebayimg.com/images/g/hlEAAOSwZq5m3fQp/s-l960.webp",
     "writer": "Antti Laaksonen",
-    "view": 0,
-    "rating": 5
+    "view": 100,
+    "rating": 5,
+    "ratingCount": 0
   },
   {
     "name": "Computer Networking: Principles, Protocols and Practice",
@@ -196,8 +215,9 @@
     "pdfLink": "https://resources.saylor.org/wwwresources/archived/site/wp-content/uploads/2012/02/Computer-Networking-Principles-Bonaventure-1-30-31-OTC1.pdf",
     "img": "https://m.media-amazon.com/images/I/81wJKQfXJdL._UF1000,1000_QL80_.jpg",
     "writer": "Olivier Bonaventure",
-    "view": 0,
-    "rating": 5
+    "view": 300,
+    "rating": 5,
+    "ratingCount": 0
   },
   {
     "name": "The Rust Programming Language",
@@ -206,7 +226,8 @@
     "pdfLink": "https://www.scs.stanford.edu/~zyedidia/docs/rust/rust_book.pdf",
     "img": "https://i.ebayimg.com/images/g/-Z0AAeSwTXdosmp4/s-l1600.webp",
     "writer": "Steve Klabnik, Carol Nichols",
-    "view": 0,
-    "rating": 5
+    "view": 21,
+    "rating": 5,
+    "ratingCount": 0
   }
 ]

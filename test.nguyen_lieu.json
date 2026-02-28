@@ -1,0 +1,407 @@
+[{
+  "_id": {
+    "$oid": "695414da121fae2c6cb8486d"
+  },
+  "ma_nl": "NL001",
+  "ten_nl": "Gỗ MDF",
+  "don_vi": "m2",
+  "gia_nhap": 175000,
+  "so_luong": 900,
+  "ton_toi_thieu": 90,
+  "mo_ta": "Nguyên liệu ván MDF dùng cho thân/mặt/vách/kệ theo BOM sản phẩm.",
+  "thuoc_tinh": {}
+},
+{
+  "_id": {
+    "$oid": "695414da121fae2c6cb8486e"
+  },
+  "ma_nl": "NL002",
+  "ten_nl": "Melamine",
+  "don_vi": "m2",
+  "gia_nhap": 65000,
+  "so_luong": 900,
+  "ton_toi_thieu": 90,
+  "mo_ta": "Vật tư phủ bề mặt chống trầy/hoàn thiện cho MDF theo BOM.",
+  "thuoc_tinh": {}
+},
+{
+  "_id": {
+    "$oid": "695414da121fae2c6cb8486f"
+  },
+  "ma_nl": "NL003",
+  "ten_nl": "Chỉ dán cạnh",
+  "don_vi": "m",
+  "gia_nhap": 2500,
+  "so_luong": 25000,
+  "ton_toi_thieu": 2500,
+  "mo_ta": "Chỉ PVC dán cạnh hoàn thiện mép ván MDF/Melamine.",
+  "thuoc_tinh": {}
+},
+{
+  "_id": {
+    "$oid": "695414da121fae2c6cb84870"
+  },
+  "ma_nl": "NL004",
+  "ten_nl": "Vít",
+  "don_vi": "cái",
+  "gia_nhap": 800,
+  "so_luong": 60000,
+  "ton_toi_thieu": 6000,
+  "mo_ta": "Vít lắp ráp (liên kết chi tiết, bắt kệ/treo tường theo BOM).",
+  "thuoc_tinh": {}
+},
+{
+  "_id": {
+    "$oid": "695414da121fae2c6cb84871"
+  },
+  "ma_nl": "NL005",
+  "ten_nl": "Gỗ cao su",
+  "don_vi": "m3",
+  "gia_nhap": 8200000,
+  "so_luong": 25,
+  "ton_toi_thieu": 3,
+  "mo_ta": "Gỗ tự nhiên dùng cho bàn/ghế/sofa/console theo BOM.",
+  "thuoc_tinh": {}
+},
+{
+  "_id": {
+    "$oid": "695414da121fae2c6cb84872"
+  },
+  "ma_nl": "NL006",
+  "ten_nl": "Sơn PU",
+  "don_vi": "lít",
+  "gia_nhap": 125000,
+  "so_luong": 350,
+  "ton_toi_thieu": 35,
+  "mo_ta": "Sơn hoàn thiện bề mặt gỗ tự nhiên theo BOM.",
+  "thuoc_tinh": {}
+},
+{
+  "_id": {
+    "$oid": "695414da121fae2c6cb84873"
+  },
+  "ma_nl": "NL007",
+  "ten_nl": "Keo gỗ",
+  "don_vi": "kg",
+  "gia_nhap": 38000,
+  "so_luong": 260,
+  "ton_toi_thieu": 25,
+  "mo_ta": "Keo liên kết mộng/ghép/dán gia cố theo BOM.",
+  "thuoc_tinh": {}
+},
+{
+  "_id": {
+    "$oid": "695414da121fae2c6cb84874"
+  },
+  "ma_nl": "NL008",
+  "ten_nl": "Ốc vít",
+  "don_vi": "bộ",
+  "gia_nhap": 25000,
+  "so_luong": 900,
+  "ton_toi_thieu": 90,
+  "mo_ta": "Ốc/vít dạng bộ (dùng liên kết khung/giường/bàn theo BOM).",
+  "thuoc_tinh": {
+    "note": "Trùng tên với đơn vị cái, tách riêng để đúng đơn vị."
+  }
+},
+{
+  "_id": {
+    "$oid": "695414da121fae2c6cb84875"
+  },
+  "ma_nl": "NL009",
+  "ten_nl": "Ốc vít",
+  "don_vi": "cái",
+  "gia_nhap": 1200,
+  "so_luong": 25000,
+  "ton_toi_thieu": 2500,
+  "mo_ta": "Ốc/vít rời (dùng bắt lắp ráp theo BOM).",
+  "thuoc_tinh": {
+    "note": "Trùng tên với đơn vị bộ, tách riêng để đúng đơn vị."
+  }
+},
+{
+  "_id": {
+    "$oid": "695414da121fae2c6cb84876"
+  },
+  "ma_nl": "NL010",
+  "ten_nl": "Mút nệm",
+  "don_vi": "kg",
+  "gia_nhap": 75000,
+  "so_luong": 520,
+  "ton_toi_thieu": 50,
+  "mo_ta": "Mút làm đệm ngồi/tựa (ghế/sofa) theo BOM.",
+  "thuoc_tinh": {}
+},
+{
+  "_id": {
+    "$oid": "695414da121fae2c6cb84877"
+  },
+  "ma_nl": "NL011",
+  "ten_nl": "Vải bọc",
+  "don_vi": "m",
+  "gia_nhap": 68000,
+  "so_luong": 1800,
+  "ton_toi_thieu": 180,
+  "mo_ta": "Vải bọc nệm ghế/sofa theo BOM.",
+  "thuoc_tinh": {}
+},
+{
+  "_id": {
+    "$oid": "695414da121fae2c6cb84878"
+  },
+  "ma_nl": "NL012",
+  "ten_nl": "Bộ chân xoay",
+  "don_vi": "bộ",
+  "gia_nhap": 185000,
+  "so_luong": 220,
+  "ton_toi_thieu": 25,
+  "mo_ta": "Cụm chân + bánh xe cho ghế xoay theo BOM.",
+  "thuoc_tinh": {}
+},
+{
+  "_id": {
+    "$oid": "695414da121fae2c6cb84879"
+  },
+  "ma_nl": "NL013",
+  "ten_nl": "Bản lề inox",
+  "don_vi": "cái",
+  "gia_nhap": 16500,
+  "so_luong": 6500,
+  "ton_toi_thieu": 650,
+  "mo_ta": "Bản lề chống gỉ cho tủ MDF (cửa tủ/bếp/giày/locker) theo BOM.",
+  "thuoc_tinh": {}
+},
+{
+  "_id": {
+    "$oid": "695414da121fae2c6cb8487a"
+  },
+  "ma_nl": "NL014",
+  "ten_nl": "Tay nắm",
+  "don_vi": "cái",
+  "gia_nhap": 12000,
+  "so_luong": 5200,
+  "ton_toi_thieu": 520,
+  "mo_ta": "Tay nắm cửa tủ/ngăn kéo theo BOM.",
+  "thuoc_tinh": {}
+},
+{
+  "_id": {
+    "$oid": "695414da121fae2c6cb8487b"
+  },
+  "ma_nl": "NL015",
+  "ten_nl": "Ray trượt",
+  "don_vi": "bộ",
+  "gia_nhap": 38000,
+  "so_luong": 2200,
+  "ton_toi_thieu": 220,
+  "mo_ta": "Ray trượt cho ngăn kéo/cửa lùa theo BOM.",
+  "thuoc_tinh": {}
+},
+{
+  "_id": {
+    "$oid": "695414da121fae2c6cb8487c"
+  },
+  "ma_nl": "NL016",
+  "ten_nl": "Chân sắt",
+  "don_vi": "bộ",
+  "gia_nhap": 420000,
+  "so_luong": 320,
+  "ton_toi_thieu": 35,
+  "mo_ta": "Khung/chân sắt cho bàn họp, bàn gaming, vách ngăn, bàn gấp theo BOM.",
+  "thuoc_tinh": {}
+},
+{
+  "_id": {
+    "$oid": "695414da121fae2c6cb8487d"
+  },
+  "ma_nl": "NL017",
+  "ten_nl": "Sơn tĩnh điện",
+  "don_vi": "kg",
+  "gia_nhap": 92000,
+  "so_luong": 160,
+  "ton_toi_thieu": 16,
+  "mo_ta": "Sơn hoàn thiện khung sắt (chân sắt/thanh sắt) theo BOM.",
+  "thuoc_tinh": {}
+},
+{
+  "_id": {
+    "$oid": "695414da121fae2c6cb8487e"
+  },
+  "ma_nl": "NL018",
+  "ten_nl": "Gỗ xoan đào",
+  "don_vi": "m3",
+  "gia_nhap": 10800000,
+  "so_luong": 10,
+  "ton_toi_thieu": 1,
+  "mo_ta": "Gỗ tự nhiên dùng sản phẩm giường xoan đào theo BOM.",
+  "thuoc_tinh": {}
+},
+{
+  "_id": {
+    "$oid": "695414da121fae2c6cb8487f"
+  },
+  "ma_nl": "NL019",
+  "ten_nl": "Gương",
+  "don_vi": "cái",
+  "gia_nhap": 150000,
+  "so_luong": 280,
+  "ton_toi_thieu": 25,
+  "mo_ta": "Gương soi dùng cho bàn trang điểm theo BOM.",
+  "thuoc_tinh": {}
+},
+{
+  "_id": {
+    "$oid": "695414da121fae2c6cb84880"
+  },
+  "ma_nl": "NL020",
+  "ten_nl": "Tắc kê",
+  "don_vi": "cái",
+  "gia_nhap": 500,
+  "so_luong": 18000,
+  "ton_toi_thieu": 1800,
+  "mo_ta": "Nở nhựa (tắc kê) treo tường, bắt kệ/panel theo BOM.",
+  "thuoc_tinh": {}
+},
+{
+  "_id": {
+    "$oid": "695414da121fae2c6cb84881"
+  },
+  "ma_nl": "NL021",
+  "ten_nl": "Đinh",
+  "don_vi": "cái",
+  "gia_nhap": 300,
+  "so_luong": 80000,
+  "ton_toi_thieu": 8000,
+  "mo_ta": "Đinh đóng pallet/bàn xưởng theo BOM.",
+  "thuoc_tinh": {}
+},
+{
+  "_id": {
+    "$oid": "695414da121fae2c6cb84882"
+  },
+  "ma_nl": "NL022",
+  "ten_nl": "Gỗ thông",
+  "don_vi": "m3",
+  "gia_nhap": 7600000,
+  "so_luong": 16,
+  "ton_toi_thieu": 2,
+  "mo_ta": "Gỗ thông dùng pallet/bàn gia công theo BOM.",
+  "thuoc_tinh": {}
+},
+{
+  "_id": {
+    "$oid": "695414da121fae2c6cb84883"
+  },
+  "ma_nl": "NL023",
+  "ten_nl": "Khóa tủ",
+  "don_vi": "cái",
+  "gia_nhap": 26000,
+  "so_luong": 1200,
+  "ton_toi_thieu": 120,
+  "mo_ta": "Khóa cho tủ locker theo BOM.",
+  "thuoc_tinh": {}
+},
+{
+  "_id": {
+    "$oid": "695414da121fae2c6cb84884"
+  },
+  "ma_nl": "NL024",
+  "ten_nl": "Đinh ghim",
+  "don_vi": "cái",
+  "gia_nhap": 200,
+  "so_luong": 50000,
+  "ton_toi_thieu": 5000,
+  "mo_ta": "Đinh ghim cố định (ghế ăn/ghế học sinh) theo BOM.",
+  "thuoc_tinh": {}
+},
+{
+  "_id": {
+    "$oid": "695414da121fae2c6cb84885"
+  },
+  "ma_nl": "NL025",
+  "ten_nl": "Sơn lót",
+  "don_vi": "lít",
+  "gia_nhap": 98000,
+  "so_luong": 160,
+  "ton_toi_thieu": 16,
+  "mo_ta": "Sơn lót chống ẩm/gia cố bề mặt cho bàn xưởng theo BOM.",
+  "thuoc_tinh": {}
+},
+{
+  "_id": {
+    "$oid": "695414da121fae2c6cb84886"
+  },
+  "ma_nl": "NL026",
+  "ten_nl": "Bánh xe",
+  "don_vi": "cái",
+  "gia_nhap": 18000,
+  "so_luong": 2600,
+  "ton_toi_thieu": 260,
+  "mo_ta": "Bánh xe cho kệ để máy in theo BOM.",
+  "thuoc_tinh": {}
+},
+{
+  "_id": {
+    "$oid": "695414da121fae2c6cb84887"
+  },
+  "ma_nl": "NL027",
+  "ten_nl": "Vách MDF",
+  "don_vi": "m2",
+  "gia_nhap": 170000,
+  "so_luong": 260,
+  "ton_toi_thieu": 26,
+  "mo_ta": "Tấm MDF dùng làm vách ngăn bàn đôi theo BOM.",
+  "thuoc_tinh": {}
+},
+{
+  "_id": {
+    "$oid": "695414da121fae2c6cb84888"
+  },
+  "ma_nl": "NL028",
+  "ten_nl": "Kính",
+  "don_vi": "m2",
+  "gia_nhap": 320000,
+  "so_luong": 220,
+  "ton_toi_thieu": 22,
+  "mo_ta": "Kính cửa tủ rượu/tủ trưng bày theo BOM.",
+  "thuoc_tinh": {}
+},
+{
+  "_id": {
+    "$oid": "695414da121fae2c6cb84889"
+  },
+  "ma_nl": "NL029",
+  "ten_nl": "Bản lề",
+  "don_vi": "cái",
+  "gia_nhap": 18000,
+  "so_luong": 1800,
+  "ton_toi_thieu": 180,
+  "mo_ta": "Bản lề thường (cửa kính/bàn gấp/bản lề khác inox) theo BOM.",
+  "thuoc_tinh": {}
+},
+{
+  "_id": {
+    "$oid": "695414da121fae2c6cb8488a"
+  },
+  "ma_nl": "NL030",
+  "ten_nl": "Laminate",
+  "don_vi": "m2",
+  "gia_nhap": 155000,
+  "so_luong": 260,
+  "ton_toi_thieu": 26,
+  "mo_ta": "Vật tư phủ chống nước (tủ lavabo) theo BOM.",
+  "thuoc_tinh": {}
+},
+{
+  "_id": {
+    "$oid": "695414da121fae2c6cb8488b"
+  },
+  "ma_nl": "NL031",
+  "ten_nl": "Thanh sắt",
+  "don_vi": "m",
+  "gia_nhap": 28000,
+  "so_luong": 1600,
+  "ton_toi_thieu": 160,
+  "mo_ta": "Thanh sắt làm giá treo áo theo BOM.",
+  "thuoc_tinh": {}
+}]
